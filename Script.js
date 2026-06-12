@@ -424,9 +424,6 @@ if (cmpForm) {
             /* =============================================
                12. FEEDBACK FORM VALIDATION
                ============================================= */
-           /* =============================================
-   FEEDBACK FORM VALIDATION
-   ============================================= */
 var fbForm = qs('#feedbackForm');
 var fbSuccess = qs('#fbSuccess');
 var fbSubmitBtn = qs('#fbSubmitBtn');
