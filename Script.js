@@ -424,7 +424,10 @@ if (cmpForm) {
             /* =============================================
                12. FEEDBACK FORM VALIDATION
                ============================================= */
-            var fbForm = qs('#feedbackForm');
+           /* =============================================
+   FEEDBACK FORM VALIDATION
+   ============================================= */
+var fbForm = qs('#feedbackForm');
 var fbSuccess = qs('#fbSuccess');
 var fbSubmitBtn = qs('#fbSubmitBtn');
 
@@ -433,40 +436,41 @@ if (fbForm) {
         e.preventDefault();
 
         var valid = true;
-            /* Name */
-var fbName = qs('#fbName').value.trim();
-var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+        var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
 
-if (fbName.length < 2) {
-    markErr('fbName', 'e-fbName',
-        'Please enter your full name.');
-    valid = false;
-}
-else if (!nameRegex.test(fbName)) {
-    markErr('fbName', 'e-fbName',
-        'Name can contain only letters and spaces.');
-    valid = false;
-}
-else {
-    markOk('fbName', 'e-fbName');
-}
+        /* Name */
+        var fbName = qs('#fbName').value.trim();
 
-/* Email */
-var fbEmail = qs('#fbEmail').value.trim();
+        if (fbName.length < 2) {
+            markErr('fbName', 'e-fbName',
+                'Please enter your full name.');
+            valid = false;
+        }
+        else if (!nameRegex.test(fbName)) {
+            markErr('fbName', 'e-fbName',
+                'Name can contain only letters and spaces.');
+            valid = false;
+        }
+        else {
+            markOk('fbName', 'e-fbName');
+        }
 
-if (!fbEmail) {
-    markErr('fbEmail', 'e-fbEmail',
-        'Email address is required.');
-    valid = false;
-}
-else if (!isEmail(fbEmail)) {
-    markErr('fbEmail', 'e-fbEmail',
-        'Please enter a valid email address.');
-    valid = false;
-}
-else {
-    markOk('fbEmail', 'e-fbEmail');
-}
+        /* Email */
+        var fbEmail = qs('#fbEmail').value.trim();
+
+        if (!fbEmail) {
+            markErr('fbEmail', 'e-fbEmail',
+                'Email address is required.');
+            valid = false;
+        }
+        else if (!isEmail(fbEmail)) {
+            markErr('fbEmail', 'e-fbEmail',
+                'Please enter a valid email address.');
+            valid = false;
+        }
+        else {
+            markOk('fbEmail', 'e-fbEmail');
+        }
 
         /* Category */
         var cat = qs('#fbCat').value;
@@ -508,7 +512,7 @@ else {
         if (valid) {
             fbSubmitBtn.disabled = true;
             fbSubmitBtn.innerHTML =
-                '<i class="bi bi-hourglass-split"></i> Sending…';
+                '<i class="bi bi-hourglass-split"></i> Sending...';
 
             setTimeout(function () {
                 fbForm.style.display = 'none';
@@ -517,7 +521,6 @@ else {
         }
     });
 }
-
             /* =============================================
                13. GALLERY LIGHTBOX
                ============================================= */
