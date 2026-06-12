@@ -335,11 +335,36 @@ else {
                 cmpForm.addEventListener('submit', function (e) {
                     e.preventDefault();
                     var valid = true;
+                          var cmpName = qs('#cmpName').value.trim();
+var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+
+if (cmpName.length < 2) {
+    markErr('cmpName', 'e-cmpName', 'Please enter your full name.');
+    valid = false;
+}
+else if (!nameRegex.test(cmpName)) {
+    markErr('cmpName', 'e-cmpName', 'Name can contain only letters and spaces.');
+    valid = false;
+}
+else {
+    markOk('cmpName', 'e-cmpName');
+}
+
 
                     /* Email optional but validate if filled */
-                    var cmpEmail = qs('#cmpEmail').value;
-                    if (cmpEmail && !isEmail(cmpEmail)) { markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.'); valid = false }
-                    else markOk('cmpEmail', 'e-cmpEmail');
+                   var cmpEmail = qs('#cmpEmail').value.trim();
+
+if (!cmpEmail) {
+    markErr('cmpEmail', 'e-cmpEmail', 'Email address is required.');
+    valid = false;
+}
+else if (!isEmail(cmpEmail)) {
+    markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.');
+    valid = false;
+}
+else {
+    markOk('cmpEmail', 'e-cmpEmail');
+}
 
                     /* Type */
                     var type = qs('#cmpType').value;
@@ -353,7 +378,14 @@ else {
 
                     /* Message */
                     var msg = qs('#cmpMsg').value.trim();
-                    if (msg.length < 10) { markErr('cmpMsg', 'e-cmpMsg', 'Please write at least 10 characters.'); valid = false }
+                    if (msg.length < 10 || msg.length > 1000) {
+    markErr('cmpMsg', 'e-cmpMsg',
+        'Message must be between 10 and 1000 characters.');
+    valid = false;
+}
+else {
+    markOk('cmpMsg', 'e-cmpMsg');
+} { markErr('cmpMsg', 'e-cmpMsg', 'Please write at least 10 characters.'); valid = false }
                     else markOk('cmpMsg', 'e-cmpMsg');
 
                     if (valid) {
@@ -377,35 +409,14 @@ else {
                 fbForm.addEventListener('submit', function (e) {
                     e.preventDefault();
                     var valid = true;
-
-                        var cmpName = qs('#cmpName').value.trim();
-var nameRegex = /^[A-Za-z\s]+$/;
-
-if (cmpName.length < 2) {
-    markErr('cmpName', 'e-cmpName', 'Please enter your full name.');
-    valid = false;
-}
-else if (!nameRegex.test(cmpName)) {
-    markErr('cmpName', 'e-cmpName', 'Name can contain only letters and spaces.');
-    valid = false;
-}
-else {
-    markOk('cmpName', 'e-cmpName');
-}
-
+                        
                     /* Email */
-                   var cmpEmail = qs('#cmpEmail').value.trim();
-
-if (!cmpEmail) {
-    markErr('cmpEmail', 'e-cmpEmail', 'Email address is required.');
-    valid = false;
-}
-else if (!isEmail(cmpEmail)) {
+                   var cmpEmail = qs('#cmpEmail').value;
+if (cmpEmail && !isEmail(cmpEmail)) {
     markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.');
     valid = false;
 }
-else {
-    markOk('cmpEmail', 'e-cmpEmail');
+else markOk('cmpEmail', 'e-cmpEmail');
 }
 
                     /* Category */
