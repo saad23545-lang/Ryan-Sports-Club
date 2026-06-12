@@ -328,122 +328,161 @@ else {
             /* =============================================
                10. COMPLAINTS FORM VALIDATION
                ============================================= */
-            var cmpForm = qs('#complaintsForm');
-            var cmpSuccess = qs('#cmpSuccess');
-            var cmpSubmitBtn = qs('#cmpSubmitBtn');
-            if (cmpForm) {
-                cmpForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    var valid = true;
-                          var cmpName = qs('#cmpName').value.trim();
-var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+           var cmpForm = qs('#complaintsForm');
+var cmpSuccess = qs('#cmpSuccess');
+var cmpSubmitBtn = qs('#cmpSubmitBtn');
 
-if (cmpName.length < 2) {
-    markErr('cmpName', 'e-cmpName', 'Please enter your full name.');
-    valid = false;
+if (cmpForm) {
+    cmpForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var valid = true;
+
+        /* Name */
+        var cmpName = qs('#cmpName').value.trim();
+        var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+
+        if (cmpName.length < 2) {
+            markErr('cmpName', 'e-cmpName',
+                'Please enter your full name.');
+            valid = false;
+        }
+        else if (!nameRegex.test(cmpName)) {
+            markErr('cmpName', 'e-cmpName',
+                'Name can contain only letters and spaces.');
+            valid = false;
+        }
+        else {
+            markOk('cmpName', 'e-cmpName');
+        }
+
+        /* Email */
+        var cmpEmail = qs('#cmpEmail').value.trim();
+
+        if (!cmpEmail) {
+            markErr('cmpEmail', 'e-cmpEmail',
+                'Email address is required.');
+            valid = false;
+        }
+        else if (!isEmail(cmpEmail)) {
+            markErr('cmpEmail', 'e-cmpEmail',
+                'Please enter a valid email address.');
+            valid = false;
+        }
+        else {
+            markOk('cmpEmail', 'e-cmpEmail');
+        }
+
+        /* Type */
+        var type = qs('#cmpType').value;
+
+        if (!type) {
+            markErr('cmpType', 'e-cmpType',
+                'Please select complaint or suggestion.');
+            valid = false;
+        }
+        else {
+            markOk('cmpType', 'e-cmpType');
+        }
+
+        /* Category */
+        var cat = qs('#cmpCat').value;
+
+        if (!cat) {
+            markErr('cmpCat', 'e-cmpCat',
+                'Please select a category.');
+            valid = false;
+        }
+        else {
+            markOk('cmpCat', 'e-cmpCat');
+        }
+
+        /* Message */
+        var msg = qs('#cmpMsg').value.trim();
+
+        if (msg.length < 10 || msg.length > 1000) {
+            markErr('cmpMsg', 'e-cmpMsg',
+                'Message must be between 10 and 1000 characters.');
+            valid = false;
+        }
+        else {
+            markOk('cmpMsg', 'e-cmpMsg');
+        }
+
+        if (valid) {
+            cmpSubmitBtn.disabled = true;
+            cmpSubmitBtn.innerHTML =
+                '<i class="bi bi-hourglass-split"></i> Sending…';
+
+            setTimeout(function () {
+                cmpForm.style.display = 'none';
+                cmpSuccess.style.display = 'block';
+            }, 1200);
+        }
+    });
 }
-else if (!nameRegex.test(cmpName)) {
-    markErr('cmpName', 'e-cmpName', 'Name can contain only letters and spaces.');
-    valid = false;
-}
-else {
-    markOk('cmpName', 'e-cmpName');
-}
-
-
-                    /* Email optional but validate if filled */
-                   var cmpEmail = qs('#cmpEmail').value.trim();
-
-if (!cmpEmail) {
-    markErr('cmpEmail', 'e-cmpEmail', 'Email address is required.');
-    valid = false;
-}
-else if (!isEmail(cmpEmail)) {
-    markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.');
-    valid = false;
-}
-else {
-    markOk('cmpEmail', 'e-cmpEmail');
-}
-
-                    /* Type */
-                    var type = qs('#cmpType').value;
-                    if (!type) { markErr('cmpType', 'e-cmpType', 'Please select complaint or suggestion.'); valid = false }
-                    else markOk('cmpType', 'e-cmpType');
-
-                    /* Category */
-                    var cat = qs('#cmpCat').value;
-                    if (!cat) { markErr('cmpCat', 'e-cmpCat', 'Please select a category.'); valid = false }
-                    else markOk('cmpCat', 'e-cmpCat');
-
-                    /* Message */
-                    var msg = qs('#cmpMsg').value.trim();
-                    if (msg.length < 10 || msg.length > 1000) {
-    markErr('cmpMsg', 'e-cmpMsg',
-        'Message must be between 10 and 1000 characters.');
-    valid = false;
-}
-else {
-    markOk('cmpMsg', 'e-cmpMsg');
-} { markErr('cmpMsg', 'e-cmpMsg', 'Please write at least 10 characters.'); valid = false }
-                    else markOk('cmpMsg', 'e-cmpMsg');
-
-                    if (valid) {
-                        cmpSubmitBtn.disabled = true;
-                        cmpSubmitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending…';
-                        setTimeout(function () {
-                            cmpForm.style.display = 'none';
-                            cmpSuccess.style.display = 'block';
-                        }, 1200);
-                    }
-                });
-            }
-
             /* =============================================
                12. FEEDBACK FORM VALIDATION
                ============================================= */
             var fbForm = qs('#feedbackForm');
-            var fbSuccess = qs('#fbSuccess');
-            var fbSubmitBtn = qs('#fbSubmitBtn');
-            if (fbForm) {
-                fbForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    var valid = true;
-                        
-                    /* Email */
-                   var cmpEmail = qs('#cmpEmail').value;
-if (cmpEmail && !isEmail(cmpEmail)) {
-    markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.');
-    valid = false;
+var fbSuccess = qs('#fbSuccess');
+var fbSubmitBtn = qs('#fbSubmitBtn');
+
+if (fbForm) {
+    fbForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var valid = true;
+
+        /* Category */
+        var cat = qs('#fbCat').value;
+
+        if (!cat) {
+            markErr('fbCat', 'e-fbCat',
+                'Please select a feedback category.');
+            valid = false;
+        }
+        else {
+            markOk('fbCat', 'e-fbCat');
+        }
+
+        /* Rating */
+        var rating =
+            document.querySelector('input[name="rating"]:checked');
+
+        if (!rating) {
+            showErr('e-fbRating',
+                'Please give us a star rating.');
+            valid = false;
+        }
+        else {
+            clearErr('e-fbRating');
+        }
+
+        /* Message */
+        var msg = qs('#fbMsg').value.trim();
+
+        if (msg.length < 10 || msg.length > 1000) {
+            markErr('fbMsg', 'e-fbMsg',
+                'Message must be between 10 and 1000 characters.');
+            valid = false;
+        }
+        else {
+            markOk('fbMsg', 'e-fbMsg');
+        }
+
+        if (valid) {
+            fbSubmitBtn.disabled = true;
+            fbSubmitBtn.innerHTML =
+                '<i class="bi bi-hourglass-split"></i> Sending…';
+
+            setTimeout(function () {
+                fbForm.style.display = 'none';
+                fbSuccess.style.display = 'block';
+            }, 1200);
+        }
+    });
 }
-else markOk('cmpEmail', 'e-cmpEmail');
-}
-
-                    /* Category */
-                    var cat = qs('#fbCat').value;
-                    if (!cat) { markErr('fbCat', 'e-fbCat', 'Please select a feedback category.'); valid = false }
-                    else markOk('fbCat', 'e-fbCat');
-
-                    /* Rating */
-                    var rating = document.querySelector('input[name="rating"]:checked');
-                    if (!rating) { showErr('e-fbRating', 'Please give us a star rating.'); valid = false }
-                    else clearErr('e-fbRating');
-
-                    /* Message */
-                    var msg = qs('#fbMsg').value.trim();
-                    if (msg.length < 10) { markErr('fbMsg', 'e-fbMsg', 'Please write at least 10 characters.'); valid = false }
-                    else markOk('fbMsg', 'e-fbMsg');
-
-                    if (valid) {
-                        fbSubmitBtn.disabled = true;
-                        fbSubmitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending…';
-                        setTimeout(function () {
-                            fbForm.style.display = 'none';
-                            fbSuccess.style.display = 'block';
-                        }, 1200);
-                    }
-                });
-            }
 
             /* =============================================
                13. GALLERY LIGHTBOX
