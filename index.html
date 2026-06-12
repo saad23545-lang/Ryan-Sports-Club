@@ -1921,15 +1921,16 @@
                   Submit a Complaint or Suggestion
                 </div>
                 <div class="f-group" style="margin-bottom: 1rem">
-                  <label for="cmpName">Name (optional)</label
-                  ><input
-                    type="text"
-                    id="cmpName"
-                    placeholder="Your name (leave blank for anonymous)"
-                  />
-                </div>
+    <label for="cmpName">Name *</label>
+    <input
+        type="text"
+        id="cmpName"
+        placeholder="Enter your full name"
+    />
+    <span class="ferr" id="e-cmpName"></span>
+</div>
                 <div class="f-group" style="margin-bottom: 1rem">
-                  <label for="cmpEmail">Email (optional)</label
+                  <label for="cmpEmail">Email *</label
                   ><input
                     type="email"
                     id="cmpEmail"
@@ -2046,22 +2047,25 @@
                 >
                   Share Your Feedback
                 </div>
-                <div class="f-group" style="margin-bottom: 1rem">
-                  <label for="fbName">Name (optional)</label
-                  ><input
-                    type="text"
-                    id="fbName"
-                    placeholder="Your name (leave blank for anonymous)"
-                  />
-                </div>
-                <div class="f-group" style="margin-bottom: 1rem">
-                  <label for="fbEmail">Email (optional)</label
-                  ><input
-                    type="email"
-                    id="fbEmail"
-                    placeholder="For us to follow up"
-                  /><span class="ferr" id="e-fbEmail"></span>
-                </div>
+               <div class="f-group">
+    <label for="fbName">Name *</label>
+    <input
+        type="text"
+        id="fbName"
+        placeholder="Enter your full name"
+    />
+    <span class="ferr" id="e-fbName"></span>
+</div>
+
+<div class="f-group">
+    <label for="fbEmail">Email *</label>
+    <input
+        type="email"
+        id="fbEmail"
+        placeholder="Enter your email address"
+    />
+    <span class="ferr" id="e-fbEmail"></span>
+</div>
                 <div class="f-group" style="margin-bottom: 1rem">
                   <label for="fbCat">Feedback About *</label>
                   <select id="fbCat">
