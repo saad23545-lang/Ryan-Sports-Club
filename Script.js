@@ -378,10 +378,35 @@ else {
                     e.preventDefault();
                     var valid = true;
 
-                    /* Email optional but validate if filled */
-                    var fbEmail = qs('#fbEmail').value;
-                    if (fbEmail && !isEmail(fbEmail)) { markErr('fbEmail', 'e-fbEmail', 'Please enter a valid email address.'); valid = false }
-                    else markOk('fbEmail', 'e-fbEmail');
+                        var cmpName = qs('#cmpName').value.trim();
+var nameRegex = /^[A-Za-z\s]+$/;
+
+if (cmpName.length < 2) {
+    markErr('cmpName', 'e-cmpName', 'Please enter your full name.');
+    valid = false;
+}
+else if (!nameRegex.test(cmpName)) {
+    markErr('cmpName', 'e-cmpName', 'Name can contain only letters and spaces.');
+    valid = false;
+}
+else {
+    markOk('cmpName', 'e-cmpName');
+}
+
+                    /* Email */
+                   var cmpEmail = qs('#cmpEmail').value.trim();
+
+if (!cmpEmail) {
+    markErr('cmpEmail', 'e-cmpEmail', 'Email address is required.');
+    valid = false;
+}
+else if (!isEmail(cmpEmail)) {
+    markErr('cmpEmail', 'e-cmpEmail', 'Please enter a valid email address.');
+    valid = false;
+}
+else {
+    markOk('cmpEmail', 'e-cmpEmail');
+}
 
                     /* Category */
                     var cat = qs('#fbCat').value;
