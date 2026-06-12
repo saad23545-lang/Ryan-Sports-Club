@@ -248,18 +248,38 @@
 
                     /* Full name */
                     var name = qs('#rFullName').value.trim();
-                    if (name.length < 2) { markErr('rFullName', 'e-rFullName', 'Please enter your full name (min 2 characters).'); valid = false }
-                    else markOk('rFullName', 'e-rFullName');
+var nameRegex = /^[A-Za-z\s]+$/;
 
+if (name.length < 2) {
+    markErr('rFullName', 'e-rFullName', 'Please enter your full name (min 2 characters).');
+    valid = false;
+}
+else if (!nameRegex.test(name)) {
+    markErr('rFullName', 'e-rFullName', 'Name can contain only letters and spaces.');
+    valid = false;
+}
+else {
+    markOk('rFullName', 'e-rFullName');
+}
                     /* Email */
                     var email = qs('#rEmail').value;
                     if (!isEmail(email)) { markErr('rEmail', 'e-rEmail', 'Please enter a valid email address.'); valid = false }
                     else markOk('rEmail', 'e-rEmail');
 
                     /* Phone */
-                    var phone = qs('#rPhone').value.replace(/\s/g, '');
-                    if (phone.length < 10) { markErr('rPhone', 'e-rPhone', 'Please enter a valid phone number (min 10 digits).'); valid = false }
-                    else markOk('rPhone', 'e-rPhone');
+                   var phone = qs('#rPhone').value.trim();
+
+if (!/^\d+$/.test(phone)) {
+    markErr('rPhone', 'e-rPhone', 'Phone number can contain digits only.');
+    valid = false;
+}
+else if (phone.length < 10 || phone.length > 15) {
+    markErr('rPhone', 'e-rPhone', 'Phone number must be between 10 and 15 digits.');
+    valid = false;
+}
+else {
+    markOk('rPhone', 'e-rPhone');
+}
 
                     /* DOB */
                     var dobVal = qs('#rDOB').value;
