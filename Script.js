@@ -433,6 +433,40 @@ if (fbForm) {
         e.preventDefault();
 
         var valid = true;
+            /* Name */
+var fbName = qs('#fbName').value.trim();
+var nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+
+if (fbName.length < 2) {
+    markErr('fbName', 'e-fbName',
+        'Please enter your full name.');
+    valid = false;
+}
+else if (!nameRegex.test(fbName)) {
+    markErr('fbName', 'e-fbName',
+        'Name can contain only letters and spaces.');
+    valid = false;
+}
+else {
+    markOk('fbName', 'e-fbName');
+}
+
+/* Email */
+var fbEmail = qs('#fbEmail').value.trim();
+
+if (!fbEmail) {
+    markErr('fbEmail', 'e-fbEmail',
+        'Email address is required.');
+    valid = false;
+}
+else if (!isEmail(fbEmail)) {
+    markErr('fbEmail', 'e-fbEmail',
+        'Please enter a valid email address.');
+    valid = false;
+}
+else {
+    markOk('fbEmail', 'e-fbEmail');
+}
 
         /* Category */
         var cat = qs('#fbCat').value;
