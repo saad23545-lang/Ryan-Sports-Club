@@ -1383,7 +1383,7 @@
         }
 
         .ath-card--feat {
-            background: var(--dark);
+            background: var(--lighter);
             border-color: rgba(232, 25, 44, .3)
         }
 
